@@ -24,9 +24,9 @@ class Pet():
     POINTS_AFTER_PLAY = 2
     
     # State Calculation
-    HUNGER_PERCENT = 1-0.3 # we need the "not hungry" percent
-    HAPPINESS_PERCENT = 0.4
-    ENERGY_PERCENT = 0.3
+    HUNGER_PERCENT = 0.4
+    HAPPINESS_PERCENT = 0.6
+    ENERGY_PERCENT = 0.4
     
     # Actions list
     _actions_list = ["eat", "sleep", "play", "state", "dascription"]
@@ -117,8 +117,9 @@ class Pet():
         print(msg)
 
     def state(self) -> float:
-        state = self._hunger * Pet.HUNGER_PERCENT + self._happiness * Pet.HAPPINESS_PERCENT + self._energy * Pet.ENERGY_PERCENT
-        return state
+        state = self._happiness * Pet.HAPPINESS_PERCENT + self._energy * Pet.ENERGY_PERCENT - self._hunger * Pet.HUNGER_PERCENT
+        state_str = f"The state of {self._name} the {self._type} is {state}"
+        print(state_str)
 
     def __str__(self):
         description = f"""------------------------------
@@ -193,3 +194,4 @@ points: {self._points}
 # p.play()
 # p.play()
 # p.play()
+# print("5".isdigit())
