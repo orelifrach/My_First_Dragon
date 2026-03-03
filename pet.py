@@ -43,7 +43,7 @@ class Pet():
         return type in Pet._pet_type_list
     
     def verify_name(name: str):
-        return 2 < len(name) < 9 and name.isalpha()
+        return 2 <= len(name) <= 9 and name.isalpha()
     
     
     def __init__(self, name: str, type: str):
@@ -174,22 +174,22 @@ points: {self._points}
             logging.error(msg)
         
 
-p = Pet("puppy", "dog")
-p.eat()
-p.eat()
-p.eat()
-p.eat()
-p.eat()
-p.eat()
-p.sleep()
-p.play()
-p.play()
-p.play()
-p.play()
-p.play()
-p.play()
-p.play()
-p.play()
-p.play()
-p.play()
-p.play()
+# p = Pet("puppy", "dog")
+# p.eat()
+# p.eat()
+# p.eat()
+# p.eat()
+# p.eat()
+# p.eat()
+# p.sleep()
+# p.play()
+# p.play()
+# p.play()
+# p.play()
+# p.play()
+# p.play()
+# p.play()
+# p.play()
+# p.play()
+# p.play()
+# p.play()

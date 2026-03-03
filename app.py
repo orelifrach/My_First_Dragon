@@ -22,12 +22,16 @@ Enter the pet's name: """)
         actions_str = ""
         for i in range(len(actions_list)):
             actions_str += f"{i+1} - {actions_list[i-1]}\n"
-        request_str = "Enter the number of the requested action:\n" + actions_str
-        requested_action = int(input(request_str))
-        while not isdigit(requested_action):
-            
-        while not 0 < requested_action <= len(actions_list):
-            requested_action = int(input(f"The number of the requested action was out of range\n{request_str}"))
+        output_str = "Enter the number of the requested action:\n" + actions_str
+        # Check if the input is a digit and if the digit is valid
+        requested_action_str = ""
+        while not 0 < requested_action_str <= len(actions_list):
+            requested_action_str = input(output_str)
+            while not requested_action_str.isdigit():
+                requested_action_str = input(f"The number of the requested action is not a digit\n{output_str}")
+            if not 0 < requested_action_str <= len(actions_list):
+                requested_action_str = input(f"The number of the requested action was out of range\n{output_str}")
+        requested_action_num = int(requested_action_str)
         
         # while True:
         #     if requested_action == 1:
