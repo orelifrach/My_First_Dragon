@@ -52,18 +52,18 @@ class App:
         requested_action_num = self.input_action()
         while requested_action_num != 6:  # exit
             if requested_action_num == 1:  # eat
-                self._pet.eat()
+                print(self._pet.eat())
             elif requested_action_num == 2:  # sleep
-                self._pet.sleep()
+                print(self._pet.sleep())
             elif requested_action_num == 3:  # play
-                self._pet.play()
+                print(self._pet.play())
             elif requested_action_num == 4:  # state
-                self._pet.state()
+                print(self._pet.get_total_state())
             elif requested_action_num == 5:  # status
-                print(self._pet)
+                print(self._pet.get_status())
             requested_action_num = self.input_action()
         print("The game is over!")
 
 
 if __name__ == "__main__":
-    app()
+    App()
