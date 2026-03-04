@@ -154,18 +154,6 @@ class Pet:
                 self._energy += change
         elif field == "points":
             self._points += change
-
-    def get_data(self, data):
-        if data == " hunger":
-            return self._hunger
-        if data == "happiness":
-            return self._happiness
-        if data == "energy":
-            return self._energy
-        if data == "points":
-            return self._points
-        if data == "state":
-            return self.get_total_state()
     
     def get_hunger(self):
         return f"The hunger level of {self._name} is {self._hunger}"
