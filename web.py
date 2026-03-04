@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request
 from app import app
 from pet import Pet
 
@@ -8,9 +8,12 @@ app = Flask("My First Dragon")
 def hello_world():
     return 'Hello World'
 
-@app.route('/start/<type>/<name>')
-def start(type, name):
-    return f"{type}, {name}"
+@app.get('/start/get')
+def start():
+    type = request.args.get('type')
+    name = request.args.get('name')
+    new = Pet(name, type)
+    return new.get_status()
 
 if __name__ == '__main__':
-    app.run(port=5000)
+    app.run(port=5000, )
