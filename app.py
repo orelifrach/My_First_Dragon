@@ -59,7 +59,7 @@ class app:
                 self._pet.play()
             elif requested_action_num == 4:  # state
                 self._pet.state()
-            elif requested_action_num == 5:  # dascription
+            elif requested_action_num == 5:  # status
                 print(self._pet)
             requested_action_num = self.input_action()
         print("The game is over!")

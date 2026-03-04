@@ -30,7 +30,7 @@ class Pet:
     ENERGY_PERCENT = 0.4
 
     # Actions list
-    _actions_list = ["eat", "sleep", "play", "state", "dascription"]
+    _actions_list = ["eat", "sleep", "play", "state", "status"]
     # Pet type list
     _pet_type_list = ["dog", "cat", "fish"]
 
@@ -75,7 +75,7 @@ class Pet:
             msg_status = "error"
 
         self._write_history(msg_status, msg)
-        print(msg)
+        return msg
 
     def sleep(self):
         try:
@@ -93,7 +93,7 @@ class Pet:
             msg_status = "error"
 
         self._write_history(msg_status, msg)
-        print(msg)
+        return msg
 
     def play(self):
         try:
@@ -114,29 +114,7 @@ class Pet:
             msg_status = "error"
 
         self._write_history(msg_status, msg)
-        print(msg)
-
-    def state(self) -> None:
-        state = (
-            self._happiness * Pet.HAPPINESS_PERCENT
-            + self._energy * Pet.ENERGY_PERCENT
-            - self._hunger * Pet.HUNGER_PERCENT
-        )
-        state_str = f"The state of {self._name} the {self._type} is {state}"
-        print(state_str)
-
-    def __str__(self):
-        description = f"""------------------------------
-name: {self._name}
-type: {self._type}
-
-hunger level: {self._hunger}
-happiness level: {self._happiness}
-energy level: {self._energy}
-
-points: {self._points}
-------------------------------"""
-        return description
+        return msg
 
     def _check_field(self, field: str, change: int):
         if field == "hunger":
@@ -173,6 +151,53 @@ points: {self._points}
         elif field == "points":
             self._points += change
 
+    def get_data(self, data):
+        if data == " hunger":
+            return self._hunger
+        if data == "happiness":
+            return self._happiness
+        if data == "energy":
+            return self._energy
+        if data == "points":
+            return self._points
+        if data == "state":
+            return self.get_total_state()
+    
+    def get_hunger(self):
+        return f"The hunger level of {self._name} is {self._hunger}"
+    
+    def get_happiness(self):
+        return f"The happiness level of {self._name} is {self._happiness}"
+    
+    def get_energy(self):
+        return f"The energy level of {self._name} is {self._happiness}"
+    
+    def get_points(self):
+        return f"You have {self._points} points"
+    
+    def get_total_state(self) -> None:
+        state = (
+            self._happiness * Pet.HAPPINESS_PERCENT
+            + self._energy * Pet.ENERGY_PERCENT
+            - self._hunger * Pet.HUNGER_PERCENT
+        )
+        state_str = f"The total state of {self._name} the {self._type} is {state}"
+        return state_str
+    
+    def get_status(self):
+        description = f"""------------------------------
+name: {self._name}
+type: {self._type}
+
+hunger level: {self._hunger}
+happiness level: {self._happiness}
+energy level: {self._energy}
+total state: {self.get_total_state()}
+
+points: {self._points}
+------------------------------"""
+        return description
+    
     def _write_history(self, msg_status, msg):
         logging.basicConfig(
             filename=self._log_path,
