@@ -34,15 +34,19 @@ class Pet:
     # Pet type list
     _pet_type_list = ["dog", "cat", "fish"]
 
+    @classmethod
     def get_actions_list(Pet):
         return Pet._actions_list
 
+    @classmethod
     def get_pet_type_list(Pet):
         return Pet._pet_type_list
 
+    @classmethod
     def verify_type(Pet, type: str):
         return type in Pet._pet_type_list
 
+    @classmethod
     def verify_name(Pet, name: str):
         return 2 <= len(name) <= 9 and name.isalpha()
 

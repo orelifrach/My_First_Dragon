@@ -1,27 +1,27 @@
 from pet import Pet
 
 
-class app:
+class App:
     def __init__(self):
-        type = input(f"""Enter the pet type from the list
-{Pet.get_pet_type_list(Pet)}: """)
-        while not Pet.verify_type(Pet, type):
-            type = input(f"""The requested type is not found in the list,
+        pet_type = input(f"""Enter the pet type from the list
+{Pet.get_pet_type_list()}: """)
+        while not Pet.verify_type(pet_type):
+            pet_type = input(f"""The requested type is not found in the list,
                 Enter the pet type from the list
-                {Pet.get_pet_type_list(Pet)}: """)
+                {Pet.get_pet_type_list()}: """)
 
         name = input("Enter the pet's name: ")
-        while not Pet.verify_name(Pet, name):
+        while not Pet.verify_name(name):
             name = input(
                 "The name must be 2-9 chars long and contain only letters,"
                 "Enter the pet's name: "
             )
 
-        self._pet = Pet(name, type)
+        self._pet = Pet(name, pet_type)
         self.start_game()
 
     def input_action(self):
-        actions_list = Pet.get_actions_list(Pet) + ["exit"]
+        actions_list = Pet.get_actions_list() + ["exit"]
         actions_str = ""
         for i in range(len(actions_list)):
             actions_str += f"{i+1} - {actions_list[i]}\n"
@@ -36,7 +36,7 @@ class app:
             while not requested_action_str.isdigit():
                 requested_action_str = input(
                     "The number of the requested action has to be a digit "
-                    f"fronmt he options,\n{output_str}"
+                    f"from the options,\n{output_str}"
                 )
             if not 0 < int(requested_action_str) <= len(actions_list):
                 is_valid = False
