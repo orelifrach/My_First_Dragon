@@ -1,33 +1,28 @@
 from flask import Flask, request, render_template
-from app import App
 from pet import Pet
 
 app = Flask("My First Dragon")
 app.secret_key = "secret_key"
-pet = None
 
-@app.route('/')
-def hello_world():
-    return render_template("home.html")
 
-@app.get('/start')
+@app.get("/start")
 def start():
-    global pet
-    if pet is None:
-        type = request.args.get('type')
-        name = request.args.get('name')
+    if "pet" not in globals():
+        type = request.args.get("type")
+        name = request.args.get("name")
+        global pet
         pet = Pet(name, type)
     return render_template("home.html")
 
-@app.get('/status')
+
+@app.get("/status")
 def get_status():
-    global pet
     return pet.get_status()
 
-@app.get('/show')
+
+@app.get("/show")
 def get_data():
-    global pet
-    data = request.args.get('data')
+    data = request.args.get("data")
     if data == "hunger":
         return pet.get_hunger()
     if data == "happiness":
@@ -39,20 +34,21 @@ def get_data():
     if data == "state":
         return pet.get_total_state()
 
-@app.get('/eat')
+
+@app.get("/eat")
 def eat():
-    global pet
     return pet.eat()
 
-@app.get('/sleep')
+
+@app.get("/sleep")
 def sleep():
-    global pet
     return pet.sleep()
 
-@app.get('/play')
+
+@app.get("/play")
 def play():
-    global pet
     return pet.play()
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     app.run(port=5000)

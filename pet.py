@@ -157,28 +157,31 @@ class Pet:
                 self._energy += change
         elif field == "points":
             self._points += change
-    
+
     def get_hunger(self):
         return f"The hunger level of {self._name} is {self._hunger}"
-    
+
     def get_happiness(self):
         return f"The happiness level of {self._name} is {self._happiness}"
-    
+
     def get_energy(self):
         return f"The energy level of {self._name} is {self._energy}"
-    
+
     def get_points(self):
         return f"You have {self._points} points"
-    
-    def get_total_state(self) -> None:
+
+    def get_total_state(self):
         state = (
             self._happiness * Pet.HAPPINESS_PERCENT
             + self._energy * Pet.ENERGY_PERCENT
             - self._hunger * Pet.HUNGER_PERCENT
         )
-        state_str = f"The total state of {self._name} the {self._type} is {state}"
+        state_str = (
+            f"The total state of {self._name} the {self._type}"
+            f"is {state}"
+        )
         return state_str
-    
+
     def get_status(self):
         description = f"""------------------------------
 name: {self._name}
@@ -192,7 +195,7 @@ total state: {self.get_total_state()}
 points: {self._points}
 ------------------------------"""
         return description
-    
+
     def _write_history(self, msg_status, msg):
         logging.basicConfig(
             filename=self._log_path,
