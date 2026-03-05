@@ -17,6 +17,7 @@ class Pet:
     POINTS_AFTER_EAT = -3
 
     HUNGER_AFTER_SLEEP = 15
+    HAPPINESS_AFTER_SLEEP = -10
     ENERGY_AFTER_SLEEP = 20
 
     HUNGER_AFTER_PLAY = 10
@@ -84,9 +85,11 @@ class Pet:
     def sleep(self):
         try:
             self._check_field("hunger", Pet.HUNGER_AFTER_SLEEP)
+            self._check_field("happiness", Pet.HAPPINESS_AFTER_SLEEP)
             self._check_field("energy", Pet.ENERGY_AFTER_SLEEP)
 
             self._change_field("hunger", Pet.HUNGER_AFTER_SLEEP)
+            self._change_field("happiness", Pet.HAPPINESS_AFTER_SLEEP)
             self._change_field("energy", Pet.ENERGY_AFTER_SLEEP)
 
             msg = f"{self._name} has slept"
@@ -102,11 +105,11 @@ class Pet:
     def play(self):
         try:
             self._check_field("points", Pet.POINTS_AFTER_PLAY)
-            self._check_field("hungry", Pet.HUNGER_AFTER_PLAY)
+            self._check_field("hunger", Pet.HUNGER_AFTER_PLAY)
             self._check_field("energy", Pet.ENERGY_AFTER_PLAY)
 
             self._change_field("points", Pet.POINTS_AFTER_PLAY)
-            self._change_field("hungry", Pet.HUNGER_AFTER_PLAY)
+            self._change_field("hunger", Pet.HUNGER_AFTER_PLAY)
             self._change_field("energy", Pet.ENERGY_AFTER_PLAY)
             self._change_field("happiness", Pet.HAPPINESS_AFTER_PLAY)
 
@@ -162,7 +165,7 @@ class Pet:
         return f"The happiness level of {self._name} is {self._happiness}"
     
     def get_energy(self):
-        return f"The energy level of {self._name} is {self._happiness}"
+        return f"The energy level of {self._name} is {self._energy}"
     
     def get_points(self):
         return f"You have {self._points} points"
@@ -194,7 +197,7 @@ points: {self._points}
         logging.basicConfig(
             filename=self._log_path,
             format="%(asctime)s  %(levelname)s | %(message)s",
-            datefmt="%m/%d/%Y %I:%M %p",
+            datefmt="%d/%m//%Y %I:%M %p",
             level=logging.DEBUG,
         )
         if msg_status == "success":
