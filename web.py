@@ -8,15 +8,16 @@ pet = None
 
 @app.route('/')
 def hello_world():
-    return render_template("login.html")
+    return render_template("home.html")
 
 @app.get('/start')
 def start():
     global pet
-    type = request.args.get('type')
-    name = request.args.get('name')
-    pet = Pet(name, type)
-    return render_template("login.html")
+    if pet is None:
+        type = request.args.get('type')
+        name = request.args.get('name')
+        pet = Pet(name, type)
+    return render_template("home.html")
 
 @app.get('/status')
 def get_status():
