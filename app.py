@@ -23,8 +23,8 @@ class App:
     def input_action(self):
         actions_list = Pet.get_actions_list() + ["exit"]
         actions_str = ""
-        for i in range(len(actions_list)):
-            actions_str += f"{i+1} - {actions_list[i]}\n"
+        for i, v in enumerate(actions_list):
+            actions_str += f"{i+1} - {v}\n"
         output_str = (
             "Enter the number of the requested action:\n"
             f"{actions_str}"

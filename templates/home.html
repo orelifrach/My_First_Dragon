@@ -1,21 +1,32 @@
 <!DOCTYPE html>
 <html>
+<head>
+    <script type="text/javascript">
+        function onclick() {
+            window.location.assign('/status');
+        }
+    </script>
+</head>
 <body style="background-color:grey">
     <title>Pet's Page</title>
     <form>
         <h1 style="color:pink">Watch Your Pet</h1>
         <h2 style="color:purple">INFO</h2>
-        <a href="/show?data=hunger"><input type="button", value="hunger", style="background-color:pink"></a>
-        <a href="/show?data=happiness"><input type="button", value="happiness", style="background-color:pink"></a>
-        <a href="/show?data=energy"><input type="button", value="energy", style="background-color:pink"></a>
-        <a href="/show?data=points"><input type="button", value="points", style="background-color:pink"></a>
-        <a href="/show?data=state"><input type="button", value="state", style="background-color:pink"></a>
-        <a href="/status"><input type="button", value="status", style="background-color:pink"></a>
+        <button type="button", onclick="window.location.assign('/show?data=hunger')", style="background-color:pink">hunger</button>
+        <button type="button", onclick="window.location.assign('/show?data=happiness')", style="background-color:pink">happiness</button>
+        <button type="button", onclick="window.location.assign('/show?data=energy')", style="background-color:pink">energy</button>
+        <button type="button", onclick="window.location.assign('/show?data=points')", style="background-color:pink">points</button>
+        <button type="button", onclick="window.location.assign('/show?data=state')", style="background-color:pink">state</button>
+        <button type="button", onclick="window.location.assign('/status')", style="background-color:pink">status</button>
         <br>
         <h2 style="color:purple">ACTIONS</h2>
-        <a href="/eat"><input type="button", value="eat", style="background-color:pink"></a>
-        <a href="/sleep"><input type="button", value="sleep", style="background-color:pink"></a>
-        <a href="/play"><input type="button", value="play", style="background-color:pink"></a>
+        <button type="button", onclick="window.location.assign('/eat')", style="background-color:pink">eat</button>
+        <button type="button", onclick="window.location.assign('/sleep')", style="background-color:pink">sleep</button>
+        <button type="button", onclick="window.location.assign('/play')", style="background-color:pink">play</button>
+        <br><br>
+      <!--  <img src="C:\Users\oreli\OneDrive\מסמכים\צהל\קורס\My_First_Dragon\images\dog.jpg" alt="dog">
+        <img src="../../images/cat.jpg" alt="cat">
+        <img src="../images/fish.jpg" alt="fish"/> -->
     </form>
 </body>
 </html>

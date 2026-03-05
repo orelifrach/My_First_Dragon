@@ -17,6 +17,7 @@ class Pet:
     POINTS_AFTER_EAT = -3
 
     HUNGER_AFTER_SLEEP = 15
+    HAPPINESS_AFTER_SLEEP = -10
     ENERGY_AFTER_SLEEP = 20
 
     HUNGER_AFTER_PLAY = 10
@@ -59,6 +60,12 @@ class Pet:
         self._points = Pet.POINTS
         abs_path = path.abspath(path.dirname("pet.py"))
         self._log_path = path.join(abs_path, "history_log")
+        logging.basicConfig(
+            filename=self._log_path,
+            format="%(asctime)s  %(levelname)s | %(message)s",
+            datefmt="%d/%m/%Y %I:%M %p",
+            level=logging.DEBUG,
+        )
 
     def eat(self):
         try:
@@ -84,9 +91,11 @@ class Pet:
     def sleep(self):
         try:
             self._check_field("hunger", Pet.HUNGER_AFTER_SLEEP)
+            self._check_field("happiness", Pet.HAPPINESS_AFTER_SLEEP)
             self._check_field("energy", Pet.ENERGY_AFTER_SLEEP)
 
             self._change_field("hunger", Pet.HUNGER_AFTER_SLEEP)
+            self._change_field("happiness", Pet.HAPPINESS_AFTER_SLEEP)
             self._change_field("energy", Pet.ENERGY_AFTER_SLEEP)
 
             msg = f"{self._name} has slept"
@@ -102,15 +111,15 @@ class Pet:
     def play(self):
         try:
             self._check_field("points", Pet.POINTS_AFTER_PLAY)
-            self._check_field("hungry", Pet.HUNGER_AFTER_PLAY)
+            self._check_field("hunger", Pet.HUNGER_AFTER_PLAY)
             self._check_field("energy", Pet.ENERGY_AFTER_PLAY)
 
             self._change_field("points", Pet.POINTS_AFTER_PLAY)
-            self._change_field("hungry", Pet.HUNGER_AFTER_PLAY)
+            self._change_field("hunger", Pet.HUNGER_AFTER_PLAY)
             self._change_field("energy", Pet.ENERGY_AFTER_PLAY)
             self._change_field("happiness", Pet.HAPPINESS_AFTER_PLAY)
 
-            msg = f"{self._name} has palyed"
+            msg = f"{self._name} has played"
             msg_status = "success"
 
         except RangeError as err:
@@ -154,28 +163,31 @@ class Pet:
                 self._energy += change
         elif field == "points":
             self._points += change
-    
+
     def get_hunger(self):
         return f"The hunger level of {self._name} is {self._hunger}"
-    
+
     def get_happiness(self):
         return f"The happiness level of {self._name} is {self._happiness}"
-    
+
     def get_energy(self):
-        return f"The energy level of {self._name} is {self._happiness}"
-    
+        return f"The energy level of {self._name} is {self._energy}"
+
     def get_points(self):
         return f"You have {self._points} points"
-    
-    def get_total_state(self) -> None:
+
+    def get_total_state(self):
         state = (
             self._happiness * Pet.HAPPINESS_PERCENT
             + self._energy * Pet.ENERGY_PERCENT
             - self._hunger * Pet.HUNGER_PERCENT
         )
-        state_str = f"The total state of {self._name} the {self._type} is {state}"
+        state_str = (
+            f"The total state of {self._name} the {self._type}"
+            f"is {state}"
+        )
         return state_str
-    
+
     def get_status(self):
         description = f"""------------------------------
 name: {self._name}
@@ -189,14 +201,8 @@ total state: {self.get_total_state()}
 points: {self._points}
 ------------------------------"""
         return description
-    
+
     def _write_history(self, msg_status, msg):
-        logging.basicConfig(
-            filename=self._log_path,
-            format="%(asctime)s  %(levelname)s | %(message)s",
-            datefmt="%m/%d/%Y %I:%M %p",
-            level=logging.DEBUG,
-        )
         if msg_status == "success":
             logging.info(msg)
         elif msg_status == "error":
