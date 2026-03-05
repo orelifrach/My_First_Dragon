@@ -1,22 +1,22 @@
-from flask import Flask, request
+from flask import Flask, request, render_template
 from app import App
 from pet import Pet
 
 app = Flask("My First Dragon")
 app.secret_key = "secret_key"
-global pet
+pet = None
 
 @app.route('/')
 def hello_world():
-    return 'Hello World'
+    return render_template("login.html")
 
-@app.get('/start/get')
+@app.get('/start')
 def start():
     global pet
     type = request.args.get('type')
     name = request.args.get('name')
     pet = Pet(name, type)
-    return pet.get_status()
+    return render_template("login.html")
 
 @app.get('/status')
 def get_status():
@@ -40,14 +40,17 @@ def get_data():
 
 @app.get('/eat')
 def eat():
+    global pet
     return pet.eat()
 
 @app.get('/sleep')
 def sleep():
+    global pet
     return pet.sleep()
 
 @app.get('/play')
 def play():
+    global pet
     return pet.play()
 
 if __name__ == '__main__':
