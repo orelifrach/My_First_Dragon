@@ -60,6 +60,12 @@ class Pet:
         self._points = Pet.POINTS
         abs_path = path.abspath(path.dirname("pet.py"))
         self._log_path = path.join(abs_path, "history_log")
+        logging.basicConfig(
+            filename=self._log_path,
+            format="%(asctime)s  %(levelname)s | %(message)s",
+            datefmt="%d/%m/%Y %I:%M %p",
+            level=logging.DEBUG,
+        )
 
     def eat(self):
         try:
@@ -113,7 +119,7 @@ class Pet:
             self._change_field("energy", Pet.ENERGY_AFTER_PLAY)
             self._change_field("happiness", Pet.HAPPINESS_AFTER_PLAY)
 
-            msg = f"{self._name} has palyed"
+            msg = f"{self._name} has played"
             msg_status = "success"
 
         except RangeError as err:
@@ -197,12 +203,6 @@ points: {self._points}
         return description
 
     def _write_history(self, msg_status, msg):
-        logging.basicConfig(
-            filename=self._log_path,
-            format="%(asctime)s  %(levelname)s | %(message)s",
-            datefmt="%d/%m//%Y %I:%M %p",
-            level=logging.DEBUG,
-        )
         if msg_status == "success":
             logging.info(msg)
         elif msg_status == "error":

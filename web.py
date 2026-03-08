@@ -1,9 +1,20 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, redirect, session
+from flask_session import Session
 from pet import Pet
 
 app = Flask("My First Dragon")
-app.secret_key = "secret_key"
+app.config["SESSION_PERMANENT"] = False
+app.config["SESSION_TYPE"] = "filesystem"
+Session(app)
 
+@app.route("/", methods =["GET", "POST"])
+def test():
+    if request.method == "POST":
+        name = request.form.get("name")
+        return render_template("login.html")
+    else:
+        return render_template("home.html")
+    
 
 @app.get("/start")
 def start():
@@ -51,4 +62,4 @@ def play():
 
 
 if __name__ == "__main__":
-    app.run(port=5000)
+    app.run(host="0.0.0.0",port=5000)
