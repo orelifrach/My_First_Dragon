@@ -5,13 +5,13 @@ class App:
     def __init__(self):
         pet_type = input(f"""Enter the pet type from the list
 {Pet.get_pet_type_list()}: """)
-        while not Pet.verify_type(pet_type):
+        while not Pet.verify_pet_type(pet_type):
             pet_type = input(f"""The requested type is not found in the list,
                 Enter the pet type from the list
                 {Pet.get_pet_type_list()}: """)
 
         name = input("Enter the pet's name: ")
-        while not Pet.verify_name(name):
+        while not Pet.verify_pet_name(name):
             name = input(
                 "The name must be 2-9 chars long and contain only letters,"
                 "Enter the pet's name: "

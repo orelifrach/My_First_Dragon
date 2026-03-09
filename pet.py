@@ -4,6 +4,8 @@ import logging
 
 
 class Pet:
+    pet_number = 1
+    
     # Initial state
     HUNGER = 50
     HAPPINESS = 70
@@ -44,22 +46,37 @@ class Pet:
         return Pet._pet_type_list
 
     @classmethod
-    def verify_type(Pet, type: str):
+    def verify_pet_type(Pet, type: str):
         return type in Pet._pet_type_list
 
     @classmethod
-    def verify_name(Pet, name: str):
+    def verify_pet_name(Pet, name: str):
         return 2 <= len(name) <= 9 and name.isalpha()
 
-    def __init__(self, name: str, type: str):
-        self._name = name
-        self._type = type
-        self._hunger = Pet.HUNGER
-        self._happiness = Pet.HAPPINESS
-        self._energy = Pet.ENERGY
-        self._points = Pet.POINTS
+    def __init__(
+        self,
+        pet_name: str,
+        pet_type: str,
+        hunger: int = HUNGER,
+        happiness: int = HAPPINESS,
+        energy: int = ENERGY,
+        points: int = POINTS,
+        log_file: str = None
+    ):
+        self._pet_name = pet_name
+        self._pet_type = pet_type
+        self._hunger = hunger
+        self._happiness = happiness
+        self._energy = energy
+        self._points = points
+        
         abs_path = path.abspath(path.dirname("pet.py"))
-        self._log_path = path.join(abs_path, "history_log")
+        if log_file is None:
+            self._log_path = path.join(abs_path, "history_logs", f"pet{Pet.pet_number}")
+            Pet.pet_number += 1
+        else:
+            self._log_path = path.join(abs_path, "history_logs", f"pet{log_file}")
+        
         logging.basicConfig(
             filename=self._log_path,
             format="%(asctime)s  %(levelname)s | %(message)s",
@@ -78,7 +95,7 @@ class Pet:
             self._change_field("energy", Pet.ENERGY_AFTER_EAT)
             self._change_field("happiness", Pet.HAPPINESS_AFTER_EAT)
 
-            msg = f"{self._name} has eaten"
+            msg = f"{self._pet_name} has eaten"
             msg_status = "success"
 
         except RangeError as err:
@@ -98,7 +115,7 @@ class Pet:
             self._change_field("happiness", Pet.HAPPINESS_AFTER_SLEEP)
             self._change_field("energy", Pet.ENERGY_AFTER_SLEEP)
 
-            msg = f"{self._name} has slept"
+            msg = f"{self._pet_name} has slept"
             msg_status = "success"
 
         except RangeError as err:
@@ -119,7 +136,7 @@ class Pet:
             self._change_field("energy", Pet.ENERGY_AFTER_PLAY)
             self._change_field("happiness", Pet.HAPPINESS_AFTER_PLAY)
 
-            msg = f"{self._name} has played"
+            msg = f"{self._pet_name} has played"
             msg_status = "success"
 
         except RangeError as err:
@@ -165,13 +182,13 @@ class Pet:
             self._points += change
 
     def get_hunger(self):
-        return f"The hunger level of {self._name} is {self._hunger}"
+        return f"The hunger level of {self._pet_name} is {self._hunger}"
 
     def get_happiness(self):
-        return f"The happiness level of {self._name} is {self._happiness}"
+        return f"The happiness level of {self._pet_name} is {self._happiness}"
 
     def get_energy(self):
-        return f"The energy level of {self._name} is {self._energy}"
+        return f"The energy level of {self._pet_name} is {self._energy}"
 
     def get_points(self):
         return f"You have {self._points} points"
@@ -183,15 +200,15 @@ class Pet:
             - self._hunger * Pet.HUNGER_PERCENT
         )
         state_str = (
-            f"The total state of {self._name} the {self._type}"
+            f"The total state of {self._pet_name} the {self._pet_type}"
             f"is {state}"
         )
         return state_str
 
     def get_status(self):
         description = f"""------------------------------
-name: {self._name}
-type: {self._type}
+name: {self._pet_name}
+type: {self._pet_type}
 
 hunger level: {self._hunger}
 happiness level: {self._happiness}
