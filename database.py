@@ -13,7 +13,7 @@ class database:
             "HAPPINESS": 6,
             "ENERGY": 7,
             "POINTS": 8,
-            "LOG_FILE": 9,
+            "LOG_FILE": 9
         }
         
         
@@ -57,15 +57,42 @@ class database:
         )
         user_data_list = self._cursor.fetchone()
         pet = Pet(
-            pet_name = self._pet_positions["PET_NAME"],
-            pet_type = self._pet_positions["PET_TYPE"],
-            hunger = self._pet_positions["HUNGER"],
-            happiness = self._pet_positions["HAPPINESS"],
-            energy = self._pet_positions["ENERGY"],
-            points = self._pet_positions["POINTS"],
-            log_file = self._pet_positions["LOG_FILE"]
+            pet_name = user_data_list[self._pet_positions["PET_NAME"]],
+            pet_type = user_data_list[self._pet_positions["PET_TYPE"]],
+            hunger = user_data_list[self._pet_positions["HUNGER"]],
+            happiness = user_data_list[self._pet_positions["HAPPINESS"]],
+            energy = user_data_list[self._pet_positions["ENERGY"]],
+            points = user_data_list[self._pet_positions["POINTS"]],
+            log_file = user_data_list[self._pet_positions["LOG_FILE"]]
         )
         return pet
+    
+    def insert_pet(self, pet: Pet):
+        # pet_name = pet.get_pet_name()
+        # pet_type = pet.get_pet_type()
+        # hunger = pet.get_hunger()
+        # happiness = pet.get_happiness()
+        # energy = pet.get_energy()
+        # points = pet.get_points()
+        # log_file = pet.get_log_file()
+        
+        params = (
+            {2},
+            'or-el',
+            'pass',
+            {pet.get_pet_name()},
+            {pet.get_pet_type()},
+            {int(pet.get_hunger(True))},
+            {int(pet.get_happiness(True))},
+            {int(pet.get_energy(True))},
+            {int(pet.get_points(True))},
+            {pet.get_log_file()}
+        )
+        self._cursor.execute(
+            "INSERT INTO pets VALUES (?,?,?,?,?,?,?,?,?,?)", params)
 
 s = database()
 print(s.get_pet("ooo", "ooo"))
+p = Pet("puppy", "dog", log_file="pet2")
+print(p.get_log_file())
+s.insert_pet(p)

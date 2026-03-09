@@ -72,11 +72,13 @@ class Pet:
         
         abs_path = path.abspath(path.dirname("pet.py"))
         if log_file is None:
-            self._log_path = path.join(abs_path, "history_logs", f"pet{Pet.pet_number}")
+            self._log_file = f"pet{Pet.pet_number}"
             Pet.pet_number += 1
         else:
-            self._log_path = path.join(abs_path, "history_logs", f"pet{log_file}")
-        
+            self._log_file = log_file
+        self._log_path = path.join(abs_path, "history_logs", f"{self._log_file}")
+
+
         logging.basicConfig(
             filename=self._log_path,
             format="%(asctime)s  %(levelname)s | %(message)s",
@@ -181,17 +183,34 @@ class Pet:
         elif field == "points":
             self._points += change
 
-    def get_hunger(self):
+    def get_pet_name(self):
+        return self._pet_name
+    
+    def get_pet_type(self):
+        return self._pet_type
+
+    def get_hunger(self, only_num: bool = False):
+        if only_num:
+            return str(self._hunger)
         return f"The hunger level of {self._pet_name} is {self._hunger}"
 
-    def get_happiness(self):
+    def get_happiness(self, only_num: bool = False):
+        if only_num:
+            return str(self._happiness)
         return f"The happiness level of {self._pet_name} is {self._happiness}"
 
-    def get_energy(self):
+    def get_energy(self, only_num: bool = False):
+        if only_num:
+            return str(self._energy)
         return f"The energy level of {self._pet_name} is {self._energy}"
 
-    def get_points(self):
+    def get_points(self, only_num: bool = False):
+        if only_num:
+            return str(self._points)
         return f"You have {self._points} points"
+    
+    def get_log_file(self):
+        return self._log_file
 
     def get_total_state(self):
         state = (
