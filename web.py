@@ -10,7 +10,7 @@ Session(app)
 @app.route("/", methods =["GET", "POST"])
 def test():
     if request.method == "POST":
-        name = request.form.get("name")
+        # name = request.form.get("name")
         return render_template("login.html")
     else:
         return render_template("home.html")
@@ -18,12 +18,13 @@ def test():
 
 @app.get("/start")
 def start():
-    if "pet" not in globals():
+    if request.form.get("name") == request.args.get("name"):
         type = request.args.get("type")
         name = request.args.get("name")
-        global pet
+        # global pet
         pet = Pet(name, type)
-    return render_template("home.html")
+        return render_template("home.html")
+    return render_template("login.html")
 
 
 @app.get("/status")
