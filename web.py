@@ -2,6 +2,7 @@ from flask import Flask, request, render_template, redirect, session
 from flask_session import Session
 from pet import Pet
 from database import database
+import requests
 
 app = Flask("My First Dragon")
 db = database()
@@ -18,19 +19,24 @@ def test():
         password = request.form["password"]
         print(username, password)
         pet = db.get_pet(username, password)
-        return request.get("/start", params={"pet": pet}).text()
-    
-    
+        return redirect("/start?pet_name=puppy&pet_type=dog")
+        # need to understand how to send the instance
+        # return redirect(f"/start?pet={pet}")
 
 @app.get("/start")
 def start():
-    if len(request.args.getlist()) > 1:
+    counter = 0
+    for i in request.args.values():
+        counter += 1
+    print(counter)
+    if counter > 1:
         pet_type = request.args["pet_type"]
         pet_name = request.args["pet_name"]
         # global pet
         pet = Pet(pet_name, pet_type)
     else:
-        pet = request.args["pet"]
+        # need to convert the print of the instance to the instance
+        pet = object(request.args["pet"])
     return render_template("home.html")
 
 
