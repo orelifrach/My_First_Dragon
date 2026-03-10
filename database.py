@@ -77,19 +77,20 @@ class database:
         # log_file = pet.get_log_file()
         
         params = (
-            {2},
+            2,
             'or-el',
             'pass',
-            {pet.get_pet_name()},
-            {pet.get_pet_type()},
-            {int(pet.get_hunger(True))},
-            {int(pet.get_happiness(True))},
-            {int(pet.get_energy(True))},
-            {int(pet.get_points(True))},
-            {pet.get_log_file()}
+            pet.get_pet_name(),
+            pet.get_pet_type(),
+            int(pet.get_hunger(True)),
+            int(pet.get_happiness(True)),
+            int(pet.get_energy(True)),
+            int(pet.get_points(True)),
+            pet.get_log_file()
         )
         self._cursor.execute(
             "INSERT INTO pets VALUES (?,?,?,?,?,?,?,?,?,?)", params)
+        self._sqlite_connection.commit()
 
 s = database()
 print(s.get_pet("ooo", "ooo"))
