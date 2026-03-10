@@ -1,30 +1,37 @@
 from flask import Flask, request, render_template, redirect, session
 from flask_session import Session
 from pet import Pet
+from database import database
 
 app = Flask("My First Dragon")
+db = database()
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
-@app.route("/", methods =["GET", "POST"])
+@app.route("/", methods=["POST", "GET"])
 def test():
-    if request.method == "POST":
-        # name = request.form.get("name")
-        return render_template("login.html")
+    if request.method == "GET":
+        return render_template("start.html")
     else:
-        return render_template("home.html")
+        username = request.form["username"]
+        password = request.form["password"]
+        print(username, password)
+        pet = db.get_pet(username, password)
+        return request.get("/start", params={"pet": pet}).text()
+    
     
 
 @app.get("/start")
 def start():
-    if request.form.get("name") == request.args.get("name"):
-        type = request.args.get("type")
-        name = request.args.get("name")
+    if len(request.args.getlist()) > 1:
+        pet_type = request.args["pet_type"]
+        pet_name = request.args["pet_name"]
         # global pet
-        pet = Pet(name, type)
-        return render_template("home.html")
-    return render_template("login.html")
+        pet = Pet(pet_name, pet_type)
+    else:
+        pet = request.args["pet"]
+    return render_template("home.html")
 
 
 @app.get("/status")

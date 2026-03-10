@@ -2,28 +2,38 @@
 <html>
 <head>
     <script type="text/javascript">
-        function onclick() {
-            window.location.assign('/status');
+        function login(usernameID, passworID) {
+            var name =document.getElementById(usernameID).;
+            var password = document.getElementById(passworID);
+            window.location.assign('/start');
         }
     </script>
 </head>
 <body style="background-color:grey">
     <center>
-        <form method="post">
+        <form method="POST">
         <fieldset>
             <legend>Login</legend>
             <table>
                 <tr>
                     <td>
-                        name:
+                        username:
                     </td>
                     <td>
-                        <input type="text" name="name"/>
+                        <input type="text" name="username" id="username"/>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <input type="submit" value="Login">
+                        password:
+                    </td>
+                    <td>
+                        <input type="password" name="password" id="password"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="submit" value="Login" onclick="login('username', 'password')">
                 </tr>
             </table>
         </fieldset>
