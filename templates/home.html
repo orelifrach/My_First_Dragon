@@ -2,8 +2,15 @@
 <html>
 <head>
     <script type="text/javascript">
-        function onclick() {
-            window.location.assign('/status');
+        function hunger() {
+            /*
+            to continue from here
+            the followings lines dont work - the script works only from the button itself
+            need to understand how to ger the pet_repr from the py script to the javascript script in the button lines
+            */
+            pet_repr = {{pet_repr}};
+            console.log("pet_repr");
+            window.location.assign('/show?data=hunger&pet_repr={0}'.format(pet_repr));
         }
     </script>
 </head>
@@ -12,7 +19,8 @@
     <form>
         <h1 style="color:pink">Watch Your Pet</h1>
         <h2 style="color:purple">INFO</h2>
-        <button type="button", onclick="window.location.assign('/show?data=hunger')", style="background-color:pink">hunger</button>
+        <input type="submit" value="hunger" onclick="hunger()">
+        <button type="button", onclick="window.location.assign('/show?data=hunger&pet={{pet_repr}}'", style="background-color:pink">hunger</button>
         <button type="button", onclick="window.location.assign('/show?data=happiness')", style="background-color:pink">happiness</button>
         <button type="button", onclick="window.location.assign('/show?data=energy')", style="background-color:pink">energy</button>
         <button type="button", onclick="window.location.assign('/show?data=points')", style="background-color:pink">points</button>
