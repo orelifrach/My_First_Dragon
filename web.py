@@ -19,31 +19,33 @@ def test():
         password = request.form["password"]
         print(username, password)
         pet = db.get_pet(username, password)
+        print(type(pet))
         # return redirect("/start?pet_name=puppy&pet_type=dog")
         # need to understand how to send the instance
-        return redirect(f"/start?pet={pet}")
+        return redirect(f"/start?pet_repr={pet}")
 
 @app.get("/start")
 def start():
     counter = 0
-    for i in request.args.values():
+    for _ in request.args.values():
         counter += 1
     print(counter)
     pet = None
     if counter > 1:
         pet_type = request.args["pet_type"]
         pet_name = request.args["pet_name"]
-        # global pet
         pet = Pet(pet_name, pet_type)
+        return redirect(f"/home?pet_repr={pet}")
     else:
-        pet_repr = request.args.get("pet")
-        pet = repr_to_pet(pet_repr)
+        pet_repr = request.args.get("pet_repr")
+        return redirect(f"/home?pet_repr={pet_repr}")
     # return render_template("home.html")
-    return redirect(f"/home?pet={pet}")
 
 @app.get("/home")
 def home():
-    pet_repr = request.args.get("pet")
+    print("in here")
+    pet_repr = request.args.get("pet_repr")
+    print("in home", pet_repr)
     return render_template("home.html", pet_repr=pet_repr)
 
 @app.get("/status")
@@ -52,7 +54,7 @@ def get_status():
 
 @app.get("/show")
 def get_data():
-    data = request.args.get("data")
+    data = request.args.get("pet")
     pet_repr = request.args.get("pet_repr")
     pet = repr_to_pet(pet_repr)
     if data == "hunger":
@@ -82,8 +84,7 @@ def play():
     return pet.play()
 
 def repr_to_pet(pet_repr):
-    pet_hex = (pet_repr.split(" ")[-1][:-1])
-    pet_id = int(pet_hex, 16)
+    pet_id = id(pet_repr)
     pet = ctypes.cast(pet_id, ctypes.py_object).value
     return pet
 
