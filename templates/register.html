@@ -2,10 +2,8 @@
 <html>
 <head>
     <script type="text/javascript">
-        function login(usernameID, passworID) {
-            var name = document.getElementById(usernameID).;
-            var password = document.getElementById(passworID);
-            window.location.assign('/start');
+        function register() {
+            window.location.assign('/register');
         }
     </script>
 </head>
@@ -13,7 +11,7 @@
     <center>
         <form method="POST">
         <fieldset>
-            <legend>Login</legend>
+            <legend>Register</legend>
             <table>
                 <tr>
                     <td>
@@ -33,7 +31,23 @@
                 </tr>
                 <tr>
                     <td>
-                        <input type="submit" value="Login" onclick="login('username', 'password')">
+                        pet name:
+                    </td>
+                    <td>
+                        <input type="text" name="pet_name" id="pet_name"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        pet type:
+                    </td>
+                    <td>
+                        <input type="text" name="pet_type" id="pet_type"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="submit" value="Register" onclick="register()">
                 </tr>
             </table>
         </fieldset>

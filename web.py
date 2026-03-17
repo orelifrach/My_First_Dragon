@@ -10,43 +10,55 @@ app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
-@app.route("/", methods=["POST", "GET"])
-def test():
+@app.get("/")
+def open():
+    return render_template("open.html")
+
+@app.route("/register", methods=["POST", "GET"])
+def register():
     if request.method == "GET":
-        return render_template("start.html")
+        return render_template("register.html")
     else:
         username = request.form["username"]
         password = request.form["password"]
-        print(username, password)
-        pet = db.get_pet(username, password)
-        print(type(pet))
-        # return redirect("/start?pet_name=puppy&pet_type=dog")
-        # need to understand how to send the instance
-        return redirect(f"/start?pet_repr={pet}")
-
-@app.get("/start")
-def start():
-    counter = 0
-    for _ in request.args.values():
-        counter += 1
-    print(counter)
-    pet = None
-    if counter > 1:
-        pet_type = request.args["pet_type"]
-        pet_name = request.args["pet_name"]
+        pet_type = request.form["pet_type"]
+        pet_name = request.form["pet_name"]
         pet = Pet(pet_name, pet_type)
+        db.insert_pet(username, password, pet)
         return redirect(f"/home?pet_repr={pet}")
+
+@app.route("/login", methods=["POST", "GET"])
+def login():
+    if request.method == "GET":
+        return render_template("login.html")
     else:
-        pet_repr = request.args.get("pet_repr")
-        return redirect(f"/home?pet_repr={pet_repr}")
-    # return render_template("home.html")
+        username = request.form["username"]
+        password = request.form["password"]
+        pet = db.get_pet(username, password)
+        return redirect(f"/home?pet_repr={pet}")
+
+# @app.get("/getin")
+# def get_in():
+#     print("LOL")
+#     counter = 0
+#     for _ in request.args.values():
+#         counter += 1
+#     print(counter)
+#     pet = None
+#     if counter > 1:
+#         pet_type = request.args["pet_type"]
+#         pet_name = request.args["pet_name"]
+#         pet = Pet(pet_name, pet_type)
+#         return redirect(f"/home?pet_repr={pet}")
+#     else:
+#         pet_repr = request.args.get("pet_repr")
+#         return redirect(f"/home?pet_repr={pet_repr}")
+#     # return render_template("home.html")
 
 @app.get("/home")
 def home():
-    print("in here")
     pet_repr = request.args.get("pet_repr")
-    print("in home", pet_repr)
-    return render_template("home.html", pet_repr=pet_repr)
+    return render_template("home.html")
 
 @app.get("/status")
 def get_status():

@@ -57,8 +57,6 @@ class database:
         """
         )
         user_data_list = self._cursor.fetchone()
-        print(user_data_list)
-        print(self._pet_positions["PET_NAME"])
         pet = Pet(
             pet_name = user_data_list[self._pet_positions["PET_NAME"]],
             pet_type = user_data_list[self._pet_positions["PET_TYPE"]],
@@ -72,11 +70,11 @@ class database:
         self._close()
         return pet
     
-    def insert_pet(self, pet: Pet):
+    def insert_pet(self, username, password, pet: Pet):
         self._open()
         params = (
-            'or-el',
-            'pass',
+            username,
+            password,
             pet.get_pet_name(),
             pet.get_pet_type(),
             int(pet.get_hunger(True)),
@@ -107,9 +105,3 @@ class database:
     def _close(self):
         self._cursor.close()
         self._sqlite_connection.close()
-
-# s = database()
-# print(s.get_pet("ooo", "ooo"))
-# p = Pet("puppy", "dog", log_file="pet2")
-# print(p.get_log_file())
-# s.insert_pet(p)
