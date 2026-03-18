@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script type="text/javascript">
+        function hunger(pet_repr) {
+            /*
+            to continue from here
+            the followings lines dont work - the script works only from the button itself
+            need to understand how to ger the pet_repr from the py script to the javascript script in the button lines
+            */
+            window.location.assign('/show?data=hunger&pet_repr={0}'.format(pet_repr));
+        }
+    </script>
+</head>
+<body style="background-color:grey">
+    <title>Pet's Page</title>
+    <form>
+        <h1>{{pet_repr}}</h1>
+        <h1 style="color:pink">Watch Your Pet</h1>
+        <h2 style="color:purple">INFO</h2>
+        <input type="submit" value="hunger" onclick="hunger()">
+        <button type="button", onclick="window.location.assign('/show?data=hunger&pet={{pet_repr}}'", style="background-color:pink">hunger</button>
+        <button type="button", onclick="window.location.assign('/show?data=happiness')", style="background-color:pink">happiness</button>
+        <button type="button", onclick="window.location.assign('/show?data=energy')", style="background-color:pink">energy</button>
+        <button type="button", onclick="window.location.assign('/show?data=points')", style="background-color:pink">points</button>
+        <button type="button", onclick="window.location.assign('/show?data=state')", style="background-color:pink">state</button>
+        <button type="button", onclick="window.location.assign('/status')", style="background-color:pink">status</button>
+        <br>
+        <h2 style="color:purple">ACTIONS</h2>
+        <button type="button", onclick="window.location.assign('/eat')", style="background-color:pink">eat</button>
+        <button type="button", onclick="window.location.assign('/sleep')", style="background-color:pink">sleep</button>
+        <button type="button", onclick="window.location.assign('/play')", style="background-color:pink">play</button>
+        <br><br>
+      <!--  <img src="C:\Users\oreli\OneDrive\מסמכים\צהל\קורס\My_First_Dragon\images\dog.jpg" alt="dog">
+        <img src="../../images/cat.jpg" alt="cat">
+        <img src="../images/fish.jpg" alt="fish"/> -->
+    </form>
+</body>
+</html>

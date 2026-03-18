@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script type="text/javascript">
+        function login() {
+            window.location.assign('/login');
+        }
+    </script>
+</head>
+<body style="background-color:grey">
+    <center>
+        <form method="POST">
+        <fieldset>
+            <legend>Login</legend>
+            <table>
+                <tr>
+                    <td>
+                        username:
+                    </td>
+                    <td>
+                        <input type="text" name="username" id="username"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        password:
+                    </td>
+                    <td>
+                        <input type="password" name="password" id="password"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="submit" value="Login" onclick="login()">
+                </tr>
+            </table>
+        </fieldset>
+        </form>
+    </center>
+</body>
+</html>

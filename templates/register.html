@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script type="text/javascript">
+        function register() {
+            window.location.assign('/register');
+        }
+    </script>
+</head>
+<body style="background-color:grey">
+    <center>
+        <form method="POST">
+        <fieldset>
+            <legend>Register</legend>
+            <table>
+                <tr>
+                    <td>
+                        username:
+                    </td>
+                    <td>
+                        <input type="text" name="username" id="username"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        password:
+                    </td>
+                    <td>
+                        <input type="password" name="password" id="password"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        pet name:
+                    </td>
+                    <td>
+                        <input type="text" name="pet_name" id="pet_name"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        pet type:
+                    </td>
+                    <td>
+                        <input type="text" name="pet_type" id="pet_type"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="submit" value="Register" onclick="register()">
+                </tr>
+            </table>
+        </fieldset>
+        </form>
+    </center>
+</body>
+</html>
