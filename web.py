@@ -6,9 +6,6 @@ import ctypes
 
 app = Flask("My First Dragon")
 db = database()
-app.config["SESSION_PERMANENT"] = False
-app.config["SESSION_TYPE"] = "filesystem"
-Session(app)
 
 @app.get("/")
 def open():
@@ -58,7 +55,7 @@ def login():
 @app.get("/home")
 def home():
     pet_repr = request.args.get("pet_repr")
-    return render_template("home.html")
+    return render_template("home.html", pet_repr=pet_repr)
 
 @app.get("/status")
 def get_status():
